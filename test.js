@@ -18,10 +18,16 @@ async function main({name}){
 
   const configuration = 'test-configuration.mjs'
   const projects = (await import(`${process.cwd()}/${configuration}`)).default;
-  const selected = projects.project.filter(i=>i.name == name)[0];
-  const index = JSON.parse((await readFile(path.join(selected.name, 'index.json'))).toString());
-  const project = Object.assign({}, projects.common, selected, index);
-
-  await compile({project});
-
+  async function buildlist({name, projects, list}){
+    if(!list) list = [];
+    const selected = projects.project.filter(i=>i.name == name)[0];
+    const index = JSON.parse((await readFile(path.join(selected.name, 'index.json'))).toString());
+    const project = Object.assign({}, projects.common, selected, index);
+    for(const name of project?.dependencies.filter(i=>i)) await buildlist({name, projects, list});
+    list.push(project);
+    return list;
+  }
+  for(const project of (await buildlist({name, projects}))){
+    await compile({project});
+  }
 }

@@ -6,7 +6,10 @@ async function compile({project}){
   const system = await middleware();
 
 
-  console.log(project);
-  console.log(system);
+  console.log(project.name);
+  
+  // console.log(project.dependencies);
+  // console.log(project);
+  // console.log(system);
 
 }
