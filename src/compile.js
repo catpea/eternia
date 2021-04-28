@@ -7,17 +7,19 @@ async function compile({project}){
 
   const middlewareDatabase = await middle();
   const middlewareBefore = [
-    {
-      name: 'createRecord', options: {}
-    },
-    {
-      name: 'loadRecord', options: {}
-    }
+    { name: 'verifyIntegrity', options: {}, },
+    { name: 'bustRecordCache', options: {}, },
+    { name: 'createRecordText', options: {}, },
+    { name: 'createRecordHtml', options: {}, },
+    { name: 'createRecord', options: {}, },
+    { name: 'loadRecord', options: {} }
   ];
-  const middlewareAfter = [ {name: 'saveServerObject', options: {}} ];
+  const middlewareAfter = [
+    {name: 'saveServerObject', options: {}}
+  ];
   const middleware = middlewareBefore.concat(project.middleware).concat(middlewareAfter)
 
-  console.log(middlewareDatabase);
+  //console.log(middlewareDatabase);
 
   const result = [];
 
@@ -33,6 +35,6 @@ async function compile({project}){
     }
   }
 
-  console.log(result);
+  //console.log(result);
 
 }

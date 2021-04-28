@@ -1,9 +1,10 @@
 import debugContext from 'debug';
 const debug = debugContext('compiler-helpers');
 
+import invariant from 'invariant';
 import path from "path";
 import { existsSync, statSync } from "fs";
-import { readFile, readdir } from "fs/promises";
+import { readFile, readdir, access } from "fs/promises";
 
 export {
   expired,
@@ -29,5 +30,6 @@ async function content(directory) {
     if (file.startsWith("content.")) candidates.push(file);
   }
   response = candidates.pop();
+  invariant(response, 'Unable to guess content file, content file may not be present.');
   return response;
 }
