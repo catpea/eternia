@@ -14,19 +14,19 @@ export default {
       format: "v3",
       order: "latest",
 
-      plugins: {
-        coverImages: {},
-        resizeCoverImage: {},
-        createMirror: {},
-        createWebsite: {},
-        localAssets: {},
-        yamlDatabase: {},
-        createContactSheetImage: {},
-        downloadVideoThumbnails: {},
-      },
+      middleware: [
+        {name: 'coverImages', options:{}},
+        {name: 'resizeCoverImage', options:{}},
+        {name: 'createMirror', options:{}},
+        {name: 'createWebsite', options:{}},
+        {name: 'localAssets', options:{}},
+        {name: 'yamlDatabase', options:{}},
+        {name: 'createContactSheetImage', options:{}},
+        {name: 'downloadVideoThumbnails', options:{}},
+      ],
 
       // list of projects required by this project, these will be built first.
-      dependencies: [],
+      dependencies: ['test-database-two'],
 
       // Objects to use for website
       objects: ["dist/test-database-one/test-database-one.json"],
@@ -57,16 +57,16 @@ export default {
       format: "v3",
       order: "latest",
 
-      plugins: {
-        coverImages: {},
-        resizeCoverImage: {},
-        createMirror: {},
-        createWebsite: {},
-        localAssets: {},
-        yamlDatabase: {},
-        createContactSheetImage: {},
-        downloadVideoThumbnails: {},
-      },
+      middleware: [
+        {name: 'coverImages', options:{}},
+        {name: 'resizeCoverImage', options:{}},
+        {name: 'createMirror', options:{}},
+        {name: 'createWebsite', options:{}},
+        {name: 'localAssets', options:{}},
+        {name: 'yamlDatabase', options:{}},
+        {name: 'createContactSheetImage', options:{}},
+        {name: 'downloadVideoThumbnails', options:{}},
+      ],
 
       // list of projects required by this project, these will be built first.
       dependencies: ["test-database-one"],

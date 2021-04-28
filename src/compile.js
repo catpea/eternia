@@ -1,15 +1,38 @@
-import middleware from './middleware/index.js';
+import middle from './middleware/index.js';
+import path from 'path';
 
 export default compile;
 
 async function compile({project}){
-  const system = await middleware();
 
+  const middlewareDatabase = await middle();
+  const middlewareBefore = [
+    {
+      name: 'createRecord', options: {}
+    },
+    {
+      name: 'loadRecord', options: {}
+    }
+  ];
+  const middlewareAfter = [ {name: 'saveServerObject', options: {}} ];
+  const middleware = middlewareBefore.concat(project.middleware).concat(middlewareAfter)
 
-  console.log(project.name);
-  
-  // console.log(project.dependencies);
-  // console.log(project);
-  // console.log(system);
+  console.log(middlewareDatabase);
+
+  const result = [];
+
+  for(const name of project.data){
+    const record = {name};
+    result.push(record);
+    for(const transformer of middleware){
+      if(middlewareDatabase[transformer.name]){
+        Object.assign( record, await middlewareDatabase[transformer.name]({record, project, home: path.resolve(path.join(project.name,name))}) );
+      }else{
+        console.log(`Transformer not found: ${transformer.name}`);
+      }
+    }
+  }
+
+  console.log(result);
 
 }
