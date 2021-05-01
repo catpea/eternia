@@ -54,69 +54,31 @@ export default {
       order: "latest",
 
       transformers: [
+
         { name: 'verifyIntegrity', options: {}, },
         { name: 'bustRecordCache', options: {}, },
 
+        { name: 'initializeRecord', options: {}, },
         { name: 'processYaml', options: {}, },
         { name: 'processMd', options: {}, },
         { name: 'processHtml', options: {}, },
-
-        { name: 'createPrint', options: {}, },
-        { name: 'createText', options: {}, },
-
-        { name: 'createMetadata', options: {}, },
-
-        { name: 'createRecordImages', options: {}, },
-        { name: 'createRecordLocalAssets', options: {}, },
-        { name: 'createVideoLinks', options: {}, },
-
+        { name: 'ensureBootstrap', options: {}, },
+        { name: 'ensurePrint', options: {}, },
+        { name: 'ensureText', options: {}, },
+        { name: 'ensureImages', options: {}, },
+        { name: 'ensureLinks', options: {}, },
+        { name: 'validateSchema', options: {} },
         { name: 'saveRecord', options: {}, },
-
-        //
-
-
-
         { name: 'verifyCacheIntegrity', options: {}, },
-        {
-          name: 'validateSchema', options: {
-            schema: {
-              "title": "Record",
-              "description": "Data Record",
-              "type": "object",
 
-              "properties": {
-                "html": {
-                  "description": "Simple HTML version of content to display",
-                  "type": "string"
-                },
-                "bootstrap": {
-                  "description": "Bootstrap HTML version of content to display",
-                  "type": "string"
-                },
-                "print": {
-                  "description": "Printer friendly HTML version of content to display",
-                  "type": "string"
-                },
-                "text": {
-                  "description": "Plain text version of content to display",
-                  "type": "string"
-                },
-              },
-
-              "required": [
-                "html", "bootstrap", "print", "text"
-              ],
-            }
-          }
-        },
-
-        { name: 'downloadVideoThumbnails', options:{}},
-        { name: 'createCoverImageFromThumbnails', options: {}, },
+        { name: 'downloadYoutubeThumbnails', options:{}},
+        { name: 'createCoverFromThumbnails', options: {}, },
         { name: 'resizeCoverImages', options: {}, },
+        { name: 'verifyPresenceOfImages', options: {}, },
 
         { name: 'createMirror', options:{} },
         { name: 'createWebsite', options:{} },
-        { name: 'verifyFeatures', options:{} },
+        { name: 'verifyWebsite', options:{} },
       ],
 
       // list of projects required by this project, these will be built first.

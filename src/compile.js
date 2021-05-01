@@ -22,7 +22,8 @@ async function compile({project}){
       if(transformers[transformer.name]){
         console.log(`Executing Transformer: ${transformer.name}`);
         const options = Object.assign({}, transformer.options, { record, project, dist, home: path.resolve(path.join(project.name, name)), });
-        Object.assign( record, await transformers[transformer.name](options) );
+        const response = await transformers[transformer.name](options);
+        if(response) Object.assign( record, response );
       }else{
         throw new Error(`Transformer not found: ${transformer.name}`);
       }

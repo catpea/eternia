@@ -5,24 +5,26 @@ import marked from "marked";
 import pretty from "pretty";
 
 import { exists, expired } from "../helpers.js";
+import toPrint from "./to-print.js";
 
 export default main;
 
 async function main({record, project, home, dist}){
 
-  const contentLocation = path.join(home, 'content.html');
-  if(!(await exists(contentLocation))) return;
+  if(record.print) return;
+
   const htmlLocation = path.join(home, 'cache', 'html.html');
+  const printLocation = path.join(home, 'cache', 'print.html');
 
-  if(await expired(contentLocation, [htmlLocation])){
-    const html = marked((await readFile(contentLocation)).toString());
-    record.html = html;
-    await writeFile(htmlLocation, html);
-  }else{
+  if( await expired(printLocation, [htmlLocation]) ){
     const html = await readFile(htmlLocation);
-    record.html = html;
+    const print = toPrint(html, record);
+    record.print = print;
+    await writeFile(printLocation, print);
+  }else{
+    const print = await readFile(printLocation);
+    record.print = print;
   }
-
 
 
 }

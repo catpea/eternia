@@ -1,13 +1,28 @@
-import { writeFile } from "fs/promises";
+import path from "path";
+import { writeFile, readFile } from "fs/promises";
+
+import marked from "marked";
+import pretty from "pretty";
+
+import { exists, expired } from "../helpers.js";
 
 export default main;
 
 async function main({record, project, home, dist}){
 
   const contentLocation = path.join(home, 'content.md');
-  const content = (await readFile(contentLocation)).toString();
-
+  if(!(await exists(contentLocation))) return;
   const htmlLocation = path.join(home, 'cache', 'html.html');
-  await writeFile(htmlLocation, content);
+
+  if(await expired(contentLocation, [htmlLocation])){
+    const html = marked((await readFile(contentLocation)).toString());
+    record.html = html;
+    await writeFile(htmlLocation, html);
+  }else{
+    const html = await readFile(htmlLocation);
+    record.html = html;
+  }
+
+
 
 }
