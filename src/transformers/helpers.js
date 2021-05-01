@@ -9,11 +9,11 @@ import { readFile, readdir, access } from "fs/promises";
 export {
   expired,
   content,
-
+  exists,
 };
 
 async function expired(compiled, sources) {
-  if (!(await access(compiled))) return true; // yes it is outdated, it does not even exit
+  if (!(await exists(compiled))) return true; // yes it is outdated, it does not even exit
   const sourceFile = sources.map(file=>({file, date: new Date(statSync(file).mtime)})).sort((a, b) => b.date - a.date).shift().file;
   const destinationStats = statSync(compiled);
   const sourceStats = statSync(sourceFile);
@@ -31,5 +31,11 @@ async function content(directory) {
   }
   response = candidates.pop();
   invariant(response, 'Unable to guess content file, content file may not be present.');
+  return response;
+}
+
+async function exists(location) {
+  let response = true;
+  try{await access(location)}catch(e){response = false}
   return response;
 }

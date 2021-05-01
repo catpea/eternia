@@ -1,40 +1,36 @@
-import middle from './middleware/index.js';
 import path from 'path';
+import { mkdir, writeFile } from "fs/promises";
+import middleware from './transformers/index.js';
 
 export default compile;
 
 async function compile({project}){
 
-  const middlewareDatabase = await middle();
-  const middlewareBefore = [
-    { name: 'verifyIntegrity', options: {}, },
-    { name: 'bustRecordCache', options: {}, },
-    { name: 'createRecordText', options: {}, },
-    { name: 'createRecordHtml', options: {}, },
-    { name: 'createRecord', options: {}, },
-    { name: 'loadRecord', options: {} }
-  ];
-  const middlewareAfter = [
-    {name: 'saveServerObject', options: {}}
-  ];
-  const middleware = middlewareBefore.concat(project.middleware).concat(middlewareAfter)
-
-  //console.log(middlewareDatabase);
-
+  console.log();
+  console.log(`Project Name: ${project.name}`);
   const result = [];
+  const dist = path.resolve(path.join('dist', project.name));
+  const before = []; // system use
+  const after = []; // system use
+  const operations = before.concat(project.transformers).concat(after)
+  const transformers = await middleware();
 
   for(const name of project.data){
     const record = {name};
     result.push(record);
-    for(const transformer of middleware){
-      if(middlewareDatabase[transformer.name]){
-        Object.assign( record, await middlewareDatabase[transformer.name]({record, project, home: path.resolve(path.join(project.name,name))}) );
+    for(const transformer of operations){
+      if(transformers[transformer.name]){
+        console.log(`Executing Transformer: ${transformer.name}`);
+        const options = Object.assign({}, transformer.options, { record, project, dist, home: path.resolve(path.join(project.name, name)), });
+        Object.assign( record, await transformers[transformer.name](options) );
       }else{
-        console.log(`Transformer not found: ${transformer.name}`);
+        throw new Error(`Transformer not found: ${transformer.name}`);
       }
     }
   }
 
-  //console.log(result);
-
+  // Save Server Object
+  const fileLocation = path.join(dist, project.name, project.name + '.json');
+  await mkdir(path.dirname(fileLocation), { recursive: true });
+  await writeFile(fileLocation, JSON.stringify(result, null, ' '));
 }

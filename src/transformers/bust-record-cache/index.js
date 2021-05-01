@@ -1,8 +1,8 @@
-import invariant from "invariant";
-import path from "path";
-import { expired, content } from "../helpers.js";
-import { access, unlink } from "fs/promises";
-
+import invariant from 'invariant';
+import path from 'path';
+import { expired, content } from '../helpers.js';
+import { access, unlink } from 'fs/promises';
+import { exists } from "../helpers.js";
 export default main;
 
 async function main({record, project, home}){
@@ -21,7 +21,7 @@ async function main({record, project, home}){
   invariant(location, 'Location cannot be empty.')
   if(await expired(location, sources)){
     console.log(`Record expired, record cache will be busted, unlink(${location})`);
-    if (await access(location)){
+    if (await exists(location)){
       await unlink(location);
     }
   }

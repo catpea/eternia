@@ -5,6 +5,10 @@ import path from "path";
 import { readFile } from "fs/promises";
 import compile from './src/compile.js';
 
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
+
 const program = new Command();
 program.version('1.0.0');
 program.command('build <name>')
@@ -12,6 +16,7 @@ program.command('build <name>')
 .action((name) => {
   main({name});
 });
+
 program.parse(process.argv);
 
 async function main({name}){

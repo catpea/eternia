@@ -14,15 +14,11 @@ export default {
       format: "v3",
       order: "latest",
 
-      middleware: [
-        {name: 'coverImages', options:{}},
-        {name: 'resizeCoverImage', options:{}},
-        {name: 'createMirror', options:{}},
-        {name: 'createWebsite', options:{}},
-        {name: 'localAssets', options:{}},
-        {name: 'yamlDatabase', options:{}},
-        {name: 'createContactSheetImage', options:{}},
-        {name: 'downloadVideoThumbnails', options:{}},
+      transformers: [
+
+        { name: 'verifyIntegrity', options: {}, },
+        { name: 'initializeRecord', options: {}, },
+
       ],
 
       // list of projects required by this project, these will be built first.
@@ -57,15 +53,70 @@ export default {
       format: "v3",
       order: "latest",
 
-      middleware: [
-        {name: 'coverImages', options:{}},
-        {name: 'resizeCoverImage', options:{}},
-        {name: 'createMirror', options:{}},
-        {name: 'createWebsite', options:{}},
-        {name: 'localAssets', options:{}},
-        {name: 'yamlDatabase', options:{}},
-        {name: 'createContactSheetImage', options:{}},
-        {name: 'downloadVideoThumbnails', options:{}},
+      transformers: [
+        { name: 'verifyIntegrity', options: {}, },
+        { name: 'bustRecordCache', options: {}, },
+
+        { name: 'processYaml', options: {}, },
+        { name: 'processMd', options: {}, },
+        { name: 'processHtml', options: {}, },
+
+        { name: 'createPrint', options: {}, },
+        { name: 'createText', options: {}, },
+
+        { name: 'createMetadata', options: {}, },
+
+        { name: 'createRecordImages', options: {}, },
+        { name: 'createRecordLocalAssets', options: {}, },
+        { name: 'createVideoLinks', options: {}, },
+
+        { name: 'saveRecord', options: {}, },
+
+        //
+
+
+
+        { name: 'verifyCacheIntegrity', options: {}, },
+        {
+          name: 'validateSchema', options: {
+            schema: {
+              "title": "Record",
+              "description": "Data Record",
+              "type": "object",
+
+              "properties": {
+                "html": {
+                  "description": "Simple HTML version of content to display",
+                  "type": "string"
+                },
+                "bootstrap": {
+                  "description": "Bootstrap HTML version of content to display",
+                  "type": "string"
+                },
+                "print": {
+                  "description": "Printer friendly HTML version of content to display",
+                  "type": "string"
+                },
+                "text": {
+                  "description": "Plain text version of content to display",
+                  "type": "string"
+                },
+              },
+
+              "required": [
+                "html", "bootstrap", "print", "text"
+              ],
+            }
+          }
+        },
+
+        { name: 'downloadVideoThumbnails', options:{}},
+        { name: 'createCoverImageFromThumbnails', options: {}, },
+        { name: 'resizeCoverImages', options: {}, },
+
+        { name: 'createMirror', options:{} },
+        { name: 'createWebsite', options:{} },
+        { name: 'verifyFeatures', options:{} },
       ],
 
       // list of projects required by this project, these will be built first.

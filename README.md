@@ -18,3 +18,4 @@ Eternia works in three simple steps:
 - [ ] Dependency Resolver, create a stack of projects that lead up to the final one
 - [ ] add pre and post middleware set
 - [ ] place strong emphasis on validating input data (use invariant)
+- [ ] Make .text version of content based on .print version to perserve the links.
