@@ -12,7 +12,8 @@ export {
   exists,
 
   ydbImages,
-  coverImages
+  coverImages,
+  allImages,
 };
 
 const coverImages = [
@@ -68,5 +69,37 @@ async function ydbImages(database) {
       images.push(`${section.url}`);
     }
   } // for each section
+  return images;
+}
+
+async function allImages({record, home}) {
+  //note: the url(s) here are just the name of files, not the full path.
+  const images = [];
+
+  const filesDirectory = path.join(home, "files");
+  const cacheDirectory = path.join(home, "cache");
+  const imagesLocation = path.join(home, 'cache', 'images.json');
+
+  images.push({
+    type: 'cover',
+    dir: filesDirectory,
+    name: record.image,
+    www: false,
+  });
+
+  for(const image of coverImages){
+    images.push({
+      type: 'cover',
+      dir: cacheDirectory,
+      name: `${image.id}-${record.image}`,
+      www: true,
+    });
+  }
+
+  // this encompases, anything linked in the content pages, including video thumbnails, and local files
+  for(const image of JSON.parse((await readFile(imagesLocation))).map(i=>({type:'dependency', dir: filesDirectory, name: i.url, www: true,}))){
+    images.push(image)
+  }
+
   return images;
 }

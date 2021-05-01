@@ -20,7 +20,7 @@ async function main({record, project, home}){
 
   for(const image of coverImages){
 
-    console.log(record);
+    //console.log(record);
 
     invariant(record.image, 'record.image must never be empty')
 

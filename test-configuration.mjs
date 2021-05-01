@@ -15,20 +15,36 @@ export default {
       order: "latest",
 
       transformers: [
-
         { name: 'verifyIntegrity', options: {}, },
+        { name: 'bustRecordCache', options: {}, },
         { name: 'initializeRecord', options: {}, },
-
+        { name: 'processYaml', options: {}, },
+        { name: 'processMd', options: {}, },
+        { name: 'processHtml', options: {}, },
+        { name: 'ensureBootstrap', options: {}, },
+        { name: 'ensurePrint', options: {}, },
+        { name: 'ensureText', options: {}, },
+        { name: 'ensureImages', options: {}, },
+        { name: 'ensureLinks', options: {}, },
+        { name: 'validateSchema', options: {} },
+        { name: 'saveRecord', options: {}, },
+        { name: 'verifyCacheIntegrity', options: {}, },
+        { name: 'downloadYoutubeThumbnails', options:{}},
+        { name: 'createCoverFromThumbnails', options: {}, },
+        { name: 'resizeCoverImages', options: {}, },
+        { name: 'verifyPresenceOfImages', options: {}, },
       ],
 
       generators: [
+        { name: 'copyLocalLinks', options:{} },
+        { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },
         { name: 'createWebsite', options:{} },
-        { name: 'verifyWebsite', options:{} },
+        // { name: 'verifyWebsite', options:{} },
       ],
 
       // list of projects required by this project, these will be built first.
-      dependencies: ['test-database-two'],
+      dependencies: [],
 
       // Objects to use for website
       objects: ["dist/test-database-one/test-database-one.json"],
@@ -40,6 +56,13 @@ export default {
       ],
 
       // Social Network Links For Website Plugin
+      links: [
+        {
+          name: "Example",
+          icon: "link-45deg",
+          href: "https://example.com",
+        },
+      ],
       network: [
         {
           name: "Example",
@@ -82,9 +105,11 @@ export default {
       ],
 
       generators: [
+        { name: 'copyLocalLinks', options:{} },
+        { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },
         { name: 'createWebsite', options:{} },
-        { name: 'verifyWebsite', options:{} },
+        // { name: 'verifyWebsite', options:{} },
       ],
 
 
@@ -109,6 +134,13 @@ export default {
       ],
 
       // Social Network Links For Website Plugin
+      links: [
+        {
+          name: "Example",
+          icon: "link-45deg",
+          href: "https://example.com",
+        },
+      ],
       network: [
         {
           name: "Example",

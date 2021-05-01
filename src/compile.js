@@ -21,7 +21,7 @@ async function compile({project}){
     data.push(record);
 
     for(const transformer of project.transformers){
-      console.log(transformer);
+      //console.log(transformer);
       if(transformation[transformer.name]){
         console.log(`Executing Transformer: ${transformer.name}`);
         const options = Object.assign({}, transformer.options, { record, project, dist, home: path.resolve(path.join(project.name, name)) });
