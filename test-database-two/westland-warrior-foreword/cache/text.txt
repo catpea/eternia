@@ -1,7 +1,5 @@
 A Warrior is She that thrives and triumphs where’er She be
 
-Listen[1]
-
 A Warrior is She that thrives and triumphs where’er She be.
 You cannot be broken, you must use your misfortune to light your way.
 
@@ -93,6 +91,3 @@ Everything Makes You Fight Longer.
 
 You,
 Are A Warrior.
-
-References
-[1]: /audio/id145.mp3

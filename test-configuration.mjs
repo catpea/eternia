@@ -21,6 +21,12 @@ export default {
 
       ],
 
+      generators: [
+        { name: 'createMirror', options:{} },
+        { name: 'createWebsite', options:{} },
+        { name: 'verifyWebsite', options:{} },
+      ],
+
       // list of projects required by this project, these will be built first.
       dependencies: ['test-database-two'],
 
@@ -53,11 +59,10 @@ export default {
       format: "v3",
       order: "latest",
 
-      transformers: [
 
+      transformers: [
         { name: 'verifyIntegrity', options: {}, },
         { name: 'bustRecordCache', options: {}, },
-
         { name: 'initializeRecord', options: {}, },
         { name: 'processYaml', options: {}, },
         { name: 'processMd', options: {}, },
@@ -70,16 +75,21 @@ export default {
         { name: 'validateSchema', options: {} },
         { name: 'saveRecord', options: {}, },
         { name: 'verifyCacheIntegrity', options: {}, },
-
         { name: 'downloadYoutubeThumbnails', options:{}},
         { name: 'createCoverFromThumbnails', options: {}, },
         { name: 'resizeCoverImages', options: {}, },
         { name: 'verifyPresenceOfImages', options: {}, },
+      ],
 
+      generators: [
         { name: 'createMirror', options:{} },
         { name: 'createWebsite', options:{} },
         { name: 'verifyWebsite', options:{} },
       ],
+
+
+
+
 
       // list of projects required by this project, these will be built first.
       dependencies: ["test-database-one"],
