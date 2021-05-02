@@ -22,7 +22,31 @@ import { writeFile, mkdir } from "fs/promises";
 
 export default mirror;
 
-async function mirror({address, destination}){
+
+
+async function mirror({address, destination, progress}){
+
+  const getAllDirFiles = function(dirPath, arrayOfFiles) {
+
+          arrayOfFiles = arrayOfFiles || []
+          if(!fs.existsSync(dirPath)) return arrayOfFiles;
+          let files = fs.readdirSync(dirPath)
+
+          files.forEach(function(file) {
+            if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+              arrayOfFiles = getAllDirFiles(dirPath + "/" + file, arrayOfFiles)
+            } else {
+              arrayOfFiles.push(file)
+            }
+          })
+
+          progress.emit('setup', {type:'Website Generator', name: 'website', size: arrayOfFiles.length, label:'idle'});
+          return arrayOfFiles
+        }
+
+  const oldFiles = getAllDirFiles(destination);
+  // console.log(oldFiles.length);
+  progress.emit('setup', {type:'Website Generator', name: 'website', size: oldFiles.length, label:'idle'});
 
   let rootAddress = address;
   const rootURL = new URL(rootAddress);
@@ -92,6 +116,7 @@ async function mirror({address, destination}){
         but sapper showed that it is OK to just make a 99 folder with index.html?
         NOTE: use if rewriting is ever needed: await writeFile(localFile, $.html());
       */
+      progress.emit('update', {name: 'website', action:'increment', label: address});
       await writeFile(localFile, response.body);
       downloaded.add({address, localFile});
 
@@ -105,6 +130,7 @@ async function mirror({address, destination}){
       const cssObject = new url.URL(remoteUrl);
       let response = await download(address, parent);
 
+      progress.emit('update', {name: 'website', action:'increment', label: address});
       await writeFile(localFile, response.body);
       downloaded.add({address, localFile});
 
@@ -130,8 +156,13 @@ async function mirror({address, destination}){
 
     }else{
       try {
+        progress.emit('update', {name: 'website', action:'increment', label: address});
         await pipeline( got.stream(remoteUrl), fs.createWriteStream(localFile) );
+        //const cssObject = new url.URL(remoteUrl);
+        //let response = await download(address, parent);
+        //await writeFile(localFile, response.body);
         downloaded.add({address, localFile});
+
       } catch (error) {
 
         if (error?.response?.statusCode === 404) {

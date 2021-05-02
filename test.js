@@ -9,5 +9,12 @@ program.version('1.0.0').command('build <name>').description('Create a new build
 program.parse(process.argv);
 
 async function main({name}){
-  for(const project of (await initialize.createDependencyStack({name, projects: (await import(`${process.cwd()}/test-configuration.mjs`)).default}))) await compile({project});
+  const projects = (await initialize.createDependencyStack({name, projects: (await import(`${process.cwd()}/test-configuration.mjs`)).default}))
+  const progress = await initialize.progress();
+  progress.emit('setup', {type:'Project', name: 'overall', size:projects.length});
+  for(const project of projects){
+    progress.emit('update', {name: 'overall', action:'increment', label: project.name});
+    await compile({project, progress});
+  }
+  progress.emit('stop');
 }

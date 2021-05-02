@@ -16,7 +16,7 @@ export default {
 
       transformers: [
         { name: 'verifyIntegrity', options: {}, },
-        { name: 'bustRecordCache', options: {}, },
+
         { name: 'initializeRecord', options: {}, },
         { name: 'processYaml', options: {}, },
         { name: 'processMd', options: {}, },
@@ -26,7 +26,7 @@ export default {
         { name: 'ensureText', options: {}, },
         { name: 'ensureImages', options: {}, },
         { name: 'ensureLinks', options: {}, },
-        { name: 'validateSchema', options: {} },
+        { name: 'validateRecordSchema', options: {} },
         { name: 'saveRecord', options: {}, },
         { name: 'verifyCacheIntegrity', options: {}, },
         { name: 'downloadYoutubeThumbnails', options:{}},
@@ -36,6 +36,7 @@ export default {
       ],
 
       generators: [
+        { name: 'validateSoSchema', options:{} },
         { name: 'copyLocalLinks', options:{} },
         { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },
@@ -85,7 +86,7 @@ export default {
 
       transformers: [
         { name: 'verifyIntegrity', options: {}, },
-        { name: 'bustRecordCache', options: {}, },
+         
         { name: 'initializeRecord', options: {}, },
         { name: 'processYaml', options: {}, },
         { name: 'processMd', options: {}, },
@@ -95,7 +96,7 @@ export default {
         { name: 'ensureText', options: {}, },
         { name: 'ensureImages', options: {}, },
         { name: 'ensureLinks', options: {}, },
-        { name: 'validateSchema', options: {} },
+        { name: 'validateRecordSchema', options: {} },
         { name: 'saveRecord', options: {}, },
         { name: 'verifyCacheIntegrity', options: {}, },
         { name: 'downloadYoutubeThumbnails', options:{}},
@@ -105,6 +106,7 @@ export default {
       ],
 
       generators: [
+        { name: 'validateSoSchema', options:{} },
         { name: 'copyLocalLinks', options:{} },
         { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },

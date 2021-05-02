@@ -15,7 +15,8 @@ Eternia works in three simple steps:
 
 ## TODO
 
-- [ ] Dependency Resolver, create a stack of projects that lead up to the final one
-- [ ] add pre and post middleware set
-- [ ] place strong emphasis on validating input data (use invariant)
-- [ ] Make .text version of content based on .print version to perserve the links.
+- [ ] add progress tracking to copying piles, audio etc.
+- [x] Dependency Resolver, create a stack of projects that lead up to the final one
+- [x] add pre and post middleware set
+- [x] place strong emphasis on validating input data (use invariant)
+- [x] Make .text version of content based on .print version to perserve the links.

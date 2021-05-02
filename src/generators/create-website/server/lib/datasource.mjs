@@ -24,18 +24,18 @@ function loadMeta(options){
     delete object.data;
     return object;
   })
-  console.log('BOOKS');
-  console.log(books);
   return {
     meta:{books}
   };
 }
+
 function loadAll(options){
   const response = {};
   const files = options.objects.sort();
   response.all = load(files, options);
   return response;
 }
+
 function loadEach(options){
   const response = {};
   const files = options.objects.sort();

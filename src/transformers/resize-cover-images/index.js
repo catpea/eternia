@@ -30,13 +30,15 @@ async function main({record, project, home}){
     const sourceFile = path.join(filesDirectory, record.image);
     const destinationFile = path.join(cacheDirectory, `${image.id}-${record.image}`);
 
-    if(await exists(destinationFile, [sourceFile])){
+    if(await expired(destinationFile, [sourceFile])){
+      console.log('Resizing Image');
       const commandArguments = image.arguments
       .map(i=>i==='SOURCE'?sourceFile:i)
       .map(i=>i==='DESTINATION'?destinationFile:i);
       debug(`Resizing ${record.id} cover image to ${image.id} size`)
       const { stdout } = await execFile(image.command, commandArguments);
       if(stdout.trim()) debug(stdout);
+
     }
 
   }

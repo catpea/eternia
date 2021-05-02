@@ -21,7 +21,6 @@ async function main({record, project, home, dist}){
   await access(cacheDirectory);
 
   // File Specific Tests
-
   const configuration = JSON.parse((await readFile( configurationFile )).toString());
 
   // image is always required

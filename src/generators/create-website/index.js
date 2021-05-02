@@ -1,5 +1,5 @@
 import debugContext from 'debug';
-const debug = debugContext('create-webnsite');
+const debug = debugContext('create-website');
 
 import path from "path";
 import { writeFile, readFile } from "fs/promises";
@@ -12,16 +12,16 @@ var helpers = handlebarsHelpers({
 
 import marked from "marked";
 import pretty from "pretty";
-import portfinder from 'portfinder';
+import getPort from 'get-port';
 
-import server from "./server/index.mjs";
+import Server from "./server/index.mjs";
 import crawler from "./creepycrawler/module.mjs";
 
 export default main;
 
-async function main({ so, project, dist }){
+async function main({ so, project, dist, progress }){
 
-  await createWebsite(project, path.join(dist, 'wwwroot'))
+  await createWebsite(project, path.join(dist, 'wwwroot'), progress)
 
 }
 
@@ -33,17 +33,28 @@ function pause(ms){
   });
 }
 
-async function createWebsite(configuration, destination) {
+async function createWebsite(configuration, destination, progress) {
   debug(`Creating Website`);
-  const port = await portfinder.getPortPromise({ port: 3000, stopPort: 7468 });
-  const address = `http://127.0.0.1:${port}/`;
+
+  return new Promise(async function(resolve, reject){
+
+
+
+  const port = await getPort();
+  const address = `http://localhost:${port}/`;
+  const server = new Server();
   server.on('start', async function(server){
     debug(`server running at: ${address}`);
-    await pause(10*1000);
-    await crawler({ address, destination });
+    await pause(1*1000);
+    await crawler({ address, destination, progress });
+    debug(`Website was scraped into: ${destination}`);
     server.close();
     debug('Server closed (stopped)');
-    debug(`Website was scraped into: ${configuration.destination}`);
+    resolve();
   });
+  debug(`Starting server at ${address}`)
   await server.start({port, configuration});
+
+  })// promise
+
 }
