@@ -39,11 +39,11 @@ async function createWebsite(configuration, destination) {
   const address = `http://127.0.0.1:${port}/`;
   server.on('start', async function(server){
     debug(`server running at: ${address}`);
-    //await pause(60*1000);
+    await pause(10*1000);
     await crawler({ address, destination });
     server.close();
     debug('Server closed (stopped)');
     debug(`Website was scraped into: ${configuration.destination}`);
   });
-  server.start({port, configuration});
+  await server.start({port, configuration});
 }

@@ -27,7 +27,6 @@ async function main({ so, project, dist }){
     for(const image of images){
       const sourceFile = path.join(image.dir, image.name);
       const destinationFile = path.join(dest, image.name);
-      //console.log(record.id, destinationFile);
       if(await expired(destinationFile, [sourceFile])) await copyFile(sourceFile, destinationFile);
     }
   }

@@ -3,6 +3,9 @@
   "version": "1.0.10",
   "description": "Eternia Static Site Generator",
   "main": "index.js",
+  "bin": {
+    "eternia": "./index.js"
+  },
   "type": "module",
   "scripts": {
     "save": "git add .; git commit -m 'New Release'; git push; npm version patch; npm publish; git push;",

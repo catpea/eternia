@@ -80,20 +80,24 @@ async function allImages({record, home}) {
   const cacheDirectory = path.join(home, "cache");
   const imagesLocation = path.join(home, 'cache', 'images.json');
 
-  images.push({
-    type: 'cover',
-    dir: filesDirectory,
-    name: record.image,
-    www: false,
-  });
-
-  for(const image of coverImages){
+  if (record.image) {
     images.push({
       type: 'cover',
-      dir: cacheDirectory,
-      name: `${image.id}-${record.image}`,
-      www: true,
+      dir: filesDirectory,
+      name: record.image,
+      www: false,
     });
+  }
+
+  if (record.image) {
+    for(const image of coverImages){
+      images.push({
+        type: 'cover',
+        dir: cacheDirectory,
+        name: `${image.id}-${record.image}`,
+        www: true,
+      });
+    }
   }
 
   // this encompases, anything linked in the content pages, including video thumbnails, and local files

@@ -34,7 +34,7 @@ async function compile({project}){
   }
 
   // Create Server Object
-  const requiredFields = ['name', 'title', 'description', 'subtitle', 'icon', 'format', 'order', 'network',];
+  const requiredFields = ['name', 'title', 'description', 'subtitle', 'icon', 'format', 'order', 'network', 'links'];
   const so = Object.fromEntries(Object.keys(project).filter((i) => requiredFields.includes(i)).map((i) => [i, project[i]]));
   so.data = data;
 

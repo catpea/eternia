@@ -35,6 +35,9 @@ export default myEmitter;
 async function boot({port, configuration}) {
   const app = new Koa()
 
+  console.log('Server Configuration');
+  console.log(configuration);
+
   app.use(async (ctx, next) => {
     ctx.state.title = configuration.title;
     ctx.state.description = configuration.description;
@@ -56,7 +59,8 @@ async function boot({port, configuration}) {
     limit: 14,
   }
 
-  const data = datasource(options)
+  const data = datasource(options);
+
   app.use(render)
   app.use(koaBody())
 

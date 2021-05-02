@@ -24,6 +24,9 @@ async function main({record, project, home}){
   const cacheDirectory = path.join(home, "cache");
 
   const yamlContentFile = path.join(home, "content.yaml");
+
+  if(!(await exists(yamlContentFile))) return;
+
   const database = yaml.load(await readFile(yamlContentFile));
 
   const destinationFile = path.join(filesDirectory, record.image);

@@ -19,7 +19,7 @@ async function createDependencyStack({name, projects, list, exists, circular}){
   const project = Object.assign({}, projects.common, selected, index);
   const parent = name;
 
-  for(const name of project?.dependencies.filter(i=>i)){
+  for(const name of project.dependencies.filter(i=>i)){
     if(!circular[name]){
       circular[name] = true;
       await createDependencyStack({name, projects, list, exists, circular});
