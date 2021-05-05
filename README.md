@@ -32,8 +32,6 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## TODO
 
-- [x] add progress tracking to copying images
-- [x] add progress tracking to copying narrations
 - [ ] optimize crawler skip files that have already been downloaded, check file-name time stamps...
 
 ## URGENT
@@ -59,3 +57,5 @@ scp -p -r bork:code/furkies-purrkies .
 - [x] add pre and post middleware set
 - [x] place strong emphasis on validating input data (use invariant)
 - [x] Make .text version of content based on .print version to perserve the links.
+- [x] add progress tracking to copying narrations
+- [x] add progress tracking to copying images

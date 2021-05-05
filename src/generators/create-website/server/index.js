@@ -26,24 +26,24 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class MyEmitter extends EventEmitter {
 
-  async start({port, configuration}){
+  async start({port, project}){
 
 
       const app = new Koa()
 
-      // console.log('Server Configuration');
-      // console.log(configuration);
+      // console.log('Server project');
+      // console.log(project);
 
       app.use(async (ctx, next) => {
-        ctx.state.title = configuration.title;
-        ctx.state.description = configuration.description;
-        ctx.state.network = configuration.network;
+        ctx.state.title = project.title;
+        ctx.state.description = project.description;
+        ctx.state.network = project.network;
         await next()
       })
 
       app.use(serve(path.join(__dirname, 'static')));
 
-      for( const { mountpoint, directory } of configuration.mounts ){
+      for( const { mountpoint, directory } of project.mounts ){
         app.use(mount(mountpoint, serve(directory)));
       }
 
@@ -51,7 +51,7 @@ class MyEmitter extends EventEmitter {
 
       const options = {
         debug: true,
-        objects: configuration.objects,
+        objects: project.objects,
         limit: 14,
       }
 

@@ -21,7 +21,7 @@ export default main;
 
 async function main({ so, project, dist, progress }){
 
-  await createWebsite(project, path.join(dist, 'wwwroot'), progress)
+  await createWebsite({project, destination:path.join(dist, 'wwwroot'), dist, progress})
 
 }
 
@@ -33,7 +33,7 @@ function pause(ms){
   });
 }
 
-async function createWebsite(configuration, destination, progress) {
+async function createWebsite({project, destination, dist, progress}) {
   debug(`Creating Website`);
 
   return new Promise(async function(resolve, reject){
@@ -46,14 +46,14 @@ async function createWebsite(configuration, destination, progress) {
   server.on('start', async function(server){
     debug(`server running at: ${address}`);
     await pause(1*1000);
-    await crawler({ address, destination, progress });
+    await crawler({project, address, dist, destination, progress });
     debug(`Website was scraped into: ${destination}`);
     server.close();
     debug('Server closed (stopped)');
     resolve();
   });
   debug(`Starting server at ${address}`)
-  await server.start({port, configuration});
+  await server.start({port, project});
 
   })// promise
 

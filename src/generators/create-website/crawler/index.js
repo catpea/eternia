@@ -20,11 +20,14 @@ const pipeline = promisify(stream.pipeline);
 
 import { writeFile, mkdir } from "fs/promises";
 
+import { exists, expired } from "../../helpers.js";
+
+
 export default mirror;
 
 
 
-async function mirror({address, destination, progress}){
+async function mirror({project, address, destination, dist, progress}){
 
   const getAllDirFiles = function(dirPath, arrayOfFiles) {
 
@@ -71,9 +74,12 @@ async function mirror({address, destination, progress}){
 
     const remoteUrl = url.parse(address).href;
     const localFile = path.join(destination, url.parse(normalizeAddress(address)).pathname);
+    const relativeDirectory =  path.dirname(url.parse(normalizeAddress(address)).pathname);
     const localDirectory = path.dirname(localFile);
-
     await mkdir(localDirectory, { recursive: true });
+
+    const isAudio = (relativeDirectory === '/audio');
+    const isImage = (relativeDirectory === '/image');
 
     let ext = path.extname(url.parse(normalizeAddress(address)).pathname);
     if(ext == '.htm') throw new Error('Noopers, no .htm extensions, you need a unifrom data source that uses standard extensions.')
@@ -154,17 +160,51 @@ async function mirror({address, destination, progress}){
       }
 
 
+    }else if(isAudio||isImage){
+      try {
+        progress.emit('update', {name: 'website', action:'increment', label: address});
+
+        let sourceFile = null;
+
+        // mounts: [
+        //   { directory: "dist/westland-warrior/image", mountpoint: "/image" },
+        //   { directory: "dist/westland-warrior/audio", mountpoint: "/audio" },
+        //   { directory: "dist/furkies-purrkies/image", mountpoint: "/image" },
+        //   { directory: "dist/furkies-purrkies/audio", mountpoint: "/audio" },
+        // ],
+
+        for( const { mountpoint, directory } of project.mounts ){
+          //app.use(mount(mountpoint, serve(directory)));
+          let guess = path.join(directory, path.basename(url.parse(normalizeAddress(address)).pathname));
+          //console.log('GUESS:', guess);
+          if(await exists(guess)){
+            sourceFile = guess;
+            break;
+          }
+        }
+        // console.log(sourceFile);
+        if(sourceFile){
+          const isExpired = await expired(localFile, [sourceFile]);
+          if(isExpired){
+            await pipeline( got.stream(remoteUrl), fs.createWriteStream(localFile) );
+          }
+        }
+        downloaded.add({address, localFile});
+
+      } catch (error) {
+        if (error?.response?.statusCode === 404) {
+          console.log(`${error.response.statusCode}: ${address} found on: ${parent}`)
+        } else {
+        console.log(error)
+        }
+        process.exit(1);
+      }
     }else{
       try {
         progress.emit('update', {name: 'website', action:'increment', label: address});
         await pipeline( got.stream(remoteUrl), fs.createWriteStream(localFile) );
-        //const cssObject = new url.URL(remoteUrl);
-        //let response = await download(address, parent);
-        //await writeFile(localFile, response.body);
         downloaded.add({address, localFile});
-
       } catch (error) {
-
         if (error?.response?.statusCode === 404) {
           console.log(`${error.response.statusCode}: ${address} found on: ${parent}`)
         } else {
@@ -175,7 +215,6 @@ async function mirror({address, destination, progress}){
 
     }
 
-    //await pause(100);
   }
 
 
