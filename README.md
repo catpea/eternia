@@ -15,7 +15,7 @@ Eternia works in three simple steps:
 
 ## TODO
 
-- [ ] add progress tracking to copying piles, audio etc.
+- [ ] add progress tracking to copying files, audio etc.
 - [x] Dependency Resolver, create a stack of projects that lead up to the final one
 - [x] add pre and post middleware set
 - [x] place strong emphasis on validating input data (use invariant)

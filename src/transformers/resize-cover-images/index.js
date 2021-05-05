@@ -35,7 +35,7 @@ async function main({record, project, home}){
       const commandArguments = image.arguments
       .map(i=>i==='SOURCE'?sourceFile:i)
       .map(i=>i==='DESTINATION'?destinationFile:i);
-      debug(`Resizing ${record.id} cover image to ${image.id} size`)
+      //debug(`Resizing ${record.id} cover image to ${image.id} size`)
       const { stdout } = await execFile(image.command, commandArguments);
       if(stdout.trim()) debug(stdout);
 
