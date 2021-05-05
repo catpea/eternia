@@ -18,19 +18,27 @@ import { exists, expired, allImages } from "../helpers.js";
 
 export default main;
 
-async function main({ so, project, dist }){
+async function main({ so, project, dist, progress }){
 
+  const list = [];
   for(const record of so.data){
-
     if(record.audio){
-      const sourceFile = path.resolve(path.join(project.name, record.name, 'files', record.audio));
-      await access(sourceFile);
+      const source = path.resolve(path.join(project.name, record.name, 'files', record.audio));
+      await access(source);
       const destinationDir = path.join(dist, 'audio');
       await mkdir(destinationDir, { recursive: true });
-      const destinationFile = path.join(destinationDir, record.audio);
-      if(await expired(destinationFile, [sourceFile])) await copyFile(sourceFile, destinationFile);
+      const destination = path.join(destinationDir, record.audio);
+      list.push({source, destination})
     }
-
   }
+
+  progress.emit('setup', {type:'Copy Audio', name: 'copy-audio', size: list.length, label:'idle'});
+  for(const {destination, source} of list){
+    progress.emit('update', {name: 'copy-audio', action:'increment', label: source});
+    if(await expired(destination, [source])) await copyFile(source, destination);
+  }
+
+
+
 
 }

@@ -82,6 +82,7 @@ async function mirror({address, destination, progress}){
 
     if(ext == '.html'){
 
+      progress.emit('update', {name: 'website', action:'increment', label: address});
       let response = await download(address, parent);
 
       const contentType = response.headers['content-type'];
@@ -116,7 +117,7 @@ async function mirror({address, destination, progress}){
         but sapper showed that it is OK to just make a 99 folder with index.html?
         NOTE: use if rewriting is ever needed: await writeFile(localFile, $.html());
       */
-      progress.emit('update', {name: 'website', action:'increment', label: address});
+
       await writeFile(localFile, response.body);
       downloaded.add({address, localFile});
 
@@ -128,9 +129,8 @@ async function mirror({address, destination, progress}){
     }else if(ext == '.css'){
 
       const cssObject = new url.URL(remoteUrl);
-      let response = await download(address, parent);
-
       progress.emit('update', {name: 'website', action:'increment', label: address});
+      let response = await download(address, parent);
       await writeFile(localFile, response.body);
       downloaded.add({address, localFile});
 

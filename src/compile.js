@@ -24,7 +24,9 @@ async function compile({project, progress}){
 
   progress.emit('setup', {type:'Record Transformator', name: 'transformation', size:project.transformers.length, label:'idle'});
   progress.emit('setup', {type:'Content Generator', name: 'generation', size:project.generators.length, label:'idle'});
-  progress.emit('setup', {type:'Website Generator', name: 'website', size:999, label:'idle'});
+  progress.emit('setup', {type:'Copy Images', name: 'copy-images', size: 9999, label:'idle'});
+  progress.emit('setup', {type:'Copy Audio', name: 'copy-audio', size: 9999, label:'idle'});
+  progress.emit('setup', {type:'Website Generator', name: 'website', size:9999, label:'idle'});
 
   // Apply Transformations To Each Record
     for(const name of project.data){

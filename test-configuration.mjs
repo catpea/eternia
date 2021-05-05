@@ -37,6 +37,7 @@ export default {
 
       generators: [
         { name: 'validateSoSchema', options:{} },
+        { name: 'copyAttachments', options:{} },
         { name: 'copyLocalLinks', options:{} },
         { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },
@@ -86,7 +87,7 @@ export default {
 
       transformers: [
         { name: 'verifyIntegrity', options: {}, },
-         
+
         { name: 'initializeRecord', options: {}, },
         { name: 'processYaml', options: {}, },
         { name: 'processMd', options: {}, },
@@ -107,6 +108,7 @@ export default {
 
       generators: [
         { name: 'validateSoSchema', options:{} },
+        { name: 'copyAttachments', options:{} },
         { name: 'copyLocalLinks', options:{} },
         { name: 'copyImages', options:{} },
         { name: 'createMirror', options:{} },

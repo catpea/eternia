@@ -14,8 +14,8 @@ import marked from "marked";
 import pretty from "pretty";
 import getPort from 'get-port';
 
-import Server from "./server/index.mjs";
-import crawler from "./creepycrawler/module.mjs";
+import Server from "./server/index.js";
+import crawler from "./crawler/index.js";
 
 export default main;
 

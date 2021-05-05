@@ -13,9 +13,48 @@ Eternia works in three simple steps:
 2. Invoke a series of middleware plugins that transform the record into its cache directory.
 3. Write the results to a destination directory!
 
+## Notes
+
+Because of aggressive caching it is recommended that you preserve time-stamps, use the ```-p``` flag with scp and ```-H posix``` with tar to store high resolution timestamps.
+
+```shell
+
+tar -c -H posix -f furkies-purrkies.tar --exclude='*.mp4' furkies-purrkies
+
+```
+
+```shell
+
+scp -p -r bork:code/furkies-purrkies .
+
+```
+
+
 ## TODO
 
-- [ ] add progress tracking to copying files, audio etc.
+- [x] add progress tracking to copying images
+- [x] add progress tracking to copying narrations
+- [ ] optimize crawler skip files that have already been downloaded, check file-name time stamps...
+
+## URGENT
+- [ ] respect .attachments in index.json...
+- [ ] add attacjements to bowel/import, considering converting bowel to decompiler...
+
+
+```JavaScript
+
+"attachments": [
+  {"dir":"image", "name":"poetry-cover.jpg"},
+  {"dir":"audio", "name":"audio-jogger.mp3"},
+  {"dir":"audio", "name":"bird-pecking-complaint.mp3"},
+  {"dir":"audio", "name":"emergence.mp3"}
+],
+
+```
+
+
+## DONE
+
 - [x] Dependency Resolver, create a stack of projects that lead up to the final one
 - [x] add pre and post middleware set
 - [x] place strong emphasis on validating input data (use invariant)

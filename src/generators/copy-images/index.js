@@ -18,16 +18,26 @@ import { exists, expired, allImages } from "../helpers.js";
 
 export default main;
 
-async function main({ so, project, dist }){
+async function main({ so, project, dist, progress }){
+
   const dest = path.join(dist, 'image');
   await mkdir(dest, { recursive: true });
+
+  const list = [];
   for(const record of so.data){
-    const home = path.resolve(path.join(project.name, record.name))
+    const home = path.resolve(path.join(project.name, record.name));
     const images = await allImages({record, home});
     for(const image of images){
-      const sourceFile = path.join(image.dir, image.name);
-      const destinationFile = path.join(dest, image.name);
-      if(await expired(destinationFile, [sourceFile])) await copyFile(sourceFile, destinationFile);
+      const source = path.join(image.dir, image.name);
+      const destination = path.join(dest, image.name);
+      list.push({source, destination})
     }
   }
+
+  progress.emit('setup', {type:'Image Copy', name: 'copy-images', size: list.length, label:'idle'});
+  for(const {destination, source} of list){
+    progress.emit('update', {name: 'copy-images', action:'increment', label: source});
+    if(await expired(destination, [source])) await copyFile(source, destination);
+  }
+
 }

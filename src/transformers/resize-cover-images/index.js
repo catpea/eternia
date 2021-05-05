@@ -18,27 +18,22 @@ export default main;
 
 async function main({record, project, home}){
 
+  const filesDirectory = path.join(home, "files");
+  const cacheDirectory = path.join(home, "cache");
+
   for(const image of coverImages){
-
-    //console.log(record);
-
     invariant(record.image, 'record.image must never be empty')
 
-    const filesDirectory = path.join(home, "files");
-    const cacheDirectory = path.join(home, "cache");
-
-    const sourceFile = path.join(filesDirectory, record.image);
     const destinationFile = path.join(cacheDirectory, `${image.id}-${record.image}`);
+    const sourceFile = path.join(filesDirectory, record.image);
 
     if(await expired(destinationFile, [sourceFile])){
-      //console.log('Resizing Image');
       const commandArguments = image.arguments
       .map(i=>i==='SOURCE'?sourceFile:i)
       .map(i=>i==='DESTINATION'?destinationFile:i);
       debug(`Resizing ${record.id} cover image to ${image.id} size`)
       const { stdout } = await execFile(image.command, commandArguments);
       if(stdout.trim()) debug(stdout);
-
     }
 
   }
