@@ -42,7 +42,7 @@ async function main({record, project, home}){
     db.youtubeThumbnails = db.youtubeThumbnails.concat( database.filter(o=>o.type === 'youtube').map(i=>path.join(filesDirectory,`yid-${i.id}.jpg`)) );
   }
 
-  db.localImages = db.localImages.concat( JSON.parse((await readFile(imagesLocation))).filter(i=>!i.url.startsWith('yid-')).map(i=>path.join(filesDirectory,i.url)) );
+  db.localImages = db.localImages.concat( JSON.parse(  (await readFile(imagesLocation)).toString() ).filter(i=>!i.url.startsWith('yid-')).map(i=>path.join(filesDirectory,i.url)) );
 
   for(const [name, list] of Object.entries(db)){
     for(const file of list){

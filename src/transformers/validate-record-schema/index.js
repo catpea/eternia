@@ -40,7 +40,7 @@ async function main({ record, project, home, dist, schema }) {
   const valid = validate(record);
   if (!valid) {
     console.log(validate.errors);
-    throw new Error(`Invalid record schema.`);
+    throw new Error(`Invalid record schema in ${record.name}.`);
   }
-  
+
 }

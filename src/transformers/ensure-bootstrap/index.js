@@ -17,12 +17,12 @@ async function main({record, project, home, dist}){
   const bootstrapLocation = path.join(home, 'cache', 'bootstrap.html');
 
   if( await expired(bootstrapLocation, [htmlLocation]) ){
-    const html = await readFile(htmlLocation);
+    const html = (await readFile(htmlLocation)).toString();
     const bootstrap = toBootstrap(html);
     record.bootstrap = bootstrap;
     await writeFile(bootstrapLocation, bootstrap);
   }else{
-    const bootstrap = await readFile(bootstrapLocation);
+    const bootstrap = (await readFile(bootstrapLocation)).toString();
     record.bootstrap = bootstrap;
   }
 

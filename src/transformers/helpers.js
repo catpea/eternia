@@ -10,7 +10,7 @@ export {
   expired,
   content,
   exists,
-
+  missing,
   ydbImages,
   coverImages,
   allImages,
@@ -25,6 +25,18 @@ const coverImages = [
   {id: 'lg', command:'convert', arguments:['-define', 'jpeg:size=1024x768', 'SOURCE', '-thumbnail', '600x600^', '-gravity', 'center', '-extent', '600x600', '-quality', '90', 'DESTINATION']},
   {id: 'xl', command:'convert', arguments:['-define', 'jpeg:size=1920x1080', 'SOURCE', '-thumbnail', '1024x768^', '-gravity', 'center', '-extent', '1024x768', '-quality', '90', 'DESTINATION']},
 ]
+
+async function missing(sources) {
+  for(const source of sources){
+    if(await exists(source)){
+      // source file is OK
+    }else{
+      // one of the source files does not exist...
+      return true;
+    }
+  }
+  return false;
+}
 
 async function expired(compiled, sources) {
 

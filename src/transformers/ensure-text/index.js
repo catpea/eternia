@@ -17,12 +17,12 @@ async function main({record, project, home, dist}){
   const textLocation = path.join(home, 'cache', 'text.txt');
 
   if( await expired(textLocation, [htmlLocation]) ){
-    const html = await readFile(htmlLocation);
+    const html = (await readFile(htmlLocation)).toString();
     const text = toText(html, record);
     record.text = text;
     await writeFile(textLocation, text);
   }else{
-    const text = await readFile(textLocation);
+    const text = (await readFile(textLocation)).toString();
     record.text = text;
   }
 

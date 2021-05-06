@@ -17,12 +17,12 @@ async function main({record, project, home, dist}){
   const printLocation = path.join(home, 'cache', 'print.html');
 
   if( await expired(printLocation, [htmlLocation]) ){
-    const html = await readFile(htmlLocation);
+    const html = (await readFile(htmlLocation)).toString();;
     const print = toPrint(html, record);
     record.print = print;
     await writeFile(printLocation, print);
   }else{
-    const print = await readFile(printLocation);
+    const print = (await readFile(printLocation)).toString();
     record.print = print;
   }
 

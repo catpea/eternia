@@ -10,9 +10,12 @@ export default {
       description: "Home of Test Database One",
       subtitle: "A Sample Database",
       icon: "collection-play",
-
       format: "v3",
       order: "latest",
+
+      templates: {
+        yaml: 'westland-warrior-yaml',
+      },
 
       transformers: [
         { name: 'verifyIntegrity', options: {}, },
@@ -80,10 +83,13 @@ export default {
       description: "Home of Test Database One and Two",
       subtitle: "A Sample Database",
       icon: "collection-play",
-
       format: "v3",
       order: "latest",
 
+      templates: {
+        html: 'templates/furkies-purrkies-html',
+        md: 'templates/furkies-purrkies-md'
+      },
 
       transformers: [
         { name: 'verifyIntegrity', options: {}, },

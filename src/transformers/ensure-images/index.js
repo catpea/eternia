@@ -17,12 +17,12 @@ async function main({record, project, home, dist}){
   const imagesLocation = path.join(home, 'cache', 'images.json');
 
   if( await expired(imagesLocation, [htmlLocation]) ){
-    const html = await readFile(htmlLocation);
+    const html = (await readFile(htmlLocation)).toString();
     const images = getImages(html);
     record.images = images;
     await writeFile(imagesLocation, JSON.stringify(images, null, '  '));
   }else{
-    const images = JSON.parse( (await readFile(imagesLocation)) );
+    const images = JSON.parse( (await readFile(imagesLocation)).toString() );
     record.images = images;
   }
 

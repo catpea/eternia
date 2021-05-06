@@ -32,7 +32,9 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## TODO
 
-- [ ] optimize crawler skip files that have already been downloaded, check file-name time stamps...
+- [ ] new entry creation! ... possible event interface...
+- [ ] .attachments!
+
 
 ## URGENT
 - [ ] respect .attachments in index.json...
@@ -53,6 +55,7 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## DONE
 
+- [x] optimize crawler skip files that have already been downloaded, check file-name time stamps...
 - [x] Dependency Resolver, create a stack of projects that lead up to the final one
 - [x] add pre and post middleware set
 - [x] place strong emphasis on validating input data (use invariant)
