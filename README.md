@@ -45,35 +45,25 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## TODO
 
-- [ ] put bowel in compiler mode, remove content.html in favor of html.html pattern.
 - [ ] both website and homepage should run in parallel for testing.
-- [ ] .attachments, respect .attachments in index.json... add attachments to bowel/import, considering converting bowel to de-compiler...
-
-## ROADMAP
-
-- [ ] configuration must contain order: "latest",
 - [ ] Make a stand-alone build of WARRIOR using the catpea template, this will replace the existing site.
 - [ ] compiler/convert-audio-to-video is just touching files, it is not creating the videos, fix it when this program goes live
-- [ ] Introduce the software tutorial Book
+
+### TESTING
+
 - [ ] check for indexes that point to removed record-directories and remove them (put use the trash bin, not rimraf)
-- [ ] Add the Audiobook compiler, and remember that it just concatetantes files so it is very fast.
-- [ ] Add Cover Image to mp4 files
-- [ ] Setup Audiobook With Amazon/similar
+- [ ] add a file checker to weed out strange files
 
-## ATTACHMENTS FYI
-```JavaScript
+## CHALLENGES
 
-"attachments": [
-  {"dir":"image", "name":"poetry-cover.jpg"},
-  {"dir":"audio", "name":"audio-jogger.mp3"},
-  {"dir":"audio", "name":"bird-pecking-complaint.mp3"},
-  {"dir":"audio", "name":"emergence.mp3"}
-],
-
-```
+- [ ] Introduce the software tutorial Book (add new book)
+- [ ] Setup Audio Book With Amazon, Gutenberg, or Librivox, add Cover Image to mp4 files as cover image.
+- [ ] Add the Audiobook compiler, and remember that it just concatetantes files so it is very fast. (this is 30GB+ what to do?)
 
 ## DONE
 
+- [x] configuration must contain order: "latest",
+- [x] add artwork link in the views of the server (credit the image owner)
 - [x] new entry creation! ... possible event interface...
 - [x] optimize crawler skip files that have already been downloaded, check file-name time stamps...
 - [x] Dependency Resolver, create a stack of projects that lead up to the final one
@@ -121,3 +111,6 @@ scp -p -r bork:code/furkies-purrkies .
 - [x] Internalize the server/wget build system, use the server in a sub module mode, and then shell out the wget.
 - [x] links need to be rewritten in the html being saved.
 - [x] Adapt catpea/server to import the extended v2 dist folder, server uses a shell script to copy those files, easy fix.
+- [x] .attachments, respect .attachments in index.json... add attachments to bowel/import, considering converting bowel to de-compiler...
+- [x] rename index.json/.dependencies to index.json/data[0].attachements
+- [x] put bowel in compiler mode, remove content.html in favor of html.html pattern.
