@@ -1,9 +1,25 @@
 # eternia
 Eternia Static Site Generator
 
+## Installation
+
+```
+npm -g i eternia
+```
+
 ## Usage
 
-run ```eternia build profile-name``` in the directory containing your content database.
+```shell
+
+eternia build profile-name #run it the directory containing your content database.
+
+eternia create furkies-purrkies html # to create html record.
+
+eternia create furkies-purrkies md # to create markdown record.
+
+eternia create --name "The Philosopher" westland-warrior # to create a new yaml record.
+
+```
 
 ## How does it work?
 
@@ -19,12 +35,10 @@ Because of aggressive caching it is recommended that you preserve time-stamps, u
 
 ```shell
 
+# tar using -H posix
 tar -c -H posix -f furkies-purrkies.tar --exclude='*.mp4' furkies-purrkies
 
-```
-
-```shell
-
+# scp using -p
 scp -p -r bork:code/furkies-purrkies .
 
 ```
@@ -32,15 +46,20 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## TODO
 
-- [ ] new entry creation! ... possible event interface...
-- [ ] .attachments!
+- [ ] .attachments, respect .attachments in index.json... add attachments to bowel/import, considering converting bowel to de-compiler...
 
+## ROADMAP
 
-## URGENT
-- [ ] respect .attachments in index.json...
-- [ ] add attacjements to bowel/import, considering converting bowel to decompiler...
+- [ ] configuration must contain order: "latest",
+- [ ] Make a stand-alone build of WARRIOR using the catpea template, this will replace the existing site.
+- [ ] compiler/convert-audio-to-video is just touching files, it is not creating the videos, fix it when this program goes live
+- [ ] Introduce the software tutorial Book
+- [ ] check for indexes that point to removed record-directories and remove them (put use the trash bin, not rimraf)
+- [ ] Add the Audiobook compiler, and remember that it just concatetantes files so it is very fast.
+- [ ] Add Cover Image to mp4 files
+- [ ] Setup Audiobook With Amazon/similar
 
-
+## ATTACHMENTS FYI
 ```JavaScript
 
 "attachments": [
@@ -52,9 +71,9 @@ scp -p -r bork:code/furkies-purrkies .
 
 ```
 
-
 ## DONE
 
+- [x] new entry creation! ... possible event interface...
 - [x] optimize crawler skip files that have already been downloaded, check file-name time stamps...
 - [x] Dependency Resolver, create a stack of projects that lead up to the final one
 - [x] add pre and post middleware set

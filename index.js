@@ -37,6 +37,7 @@ async function build({name}){
 }
 
 async function create({project, template, options}){
+  const name = options.name;
   const configuration = (await import(`${process.cwd()}/configuration.mjs`)).default;
   const selected = configuration.project.filter(o=>o.name==project)[0]
   invariant(selected.name, 'selected.name is empty, project name is not in configuration file.');
@@ -46,7 +47,7 @@ async function create({project, template, options}){
   invariant(template, 'Unable to select template, please specify a valid template.')
   const payload = (await import(`${process.cwd()}/${template}/index.js`)).default;
   const destination = path.join(process.cwd(), project.name)
-  payload({destination});
+  payload({destination, name});
 
   //creator({project, template});
 }
