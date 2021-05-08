@@ -60,6 +60,7 @@ async function expired(compiled, sources) {
 
   if (sourceDate > destinationDate){
     // the destination is outdated, expired, because source file is newer.
+    console.log('Expired Diff', destinationDate - sourceDate);
     return true;
   }else{
     // destination is not expired, sources are older
