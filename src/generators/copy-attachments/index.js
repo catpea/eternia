@@ -22,8 +22,8 @@ export default main;
 async function main({ so, project, dist }){
   for(const record of so.data){
     if (record.attachments) {
-      for(const attachment of record.attachments){
-        const {name, dir} = attachment;
+      for(const attachment of Object.entries(record.attachments)){
+        const [name, dir] = attachment;
         const sourceFile = path.resolve(path.join(project.name, record.name, 'files', name)); // all manually linked files reside in files folder
         await access(sourceFile);
         const destinationDir = path.join(dist, dir);
