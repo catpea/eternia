@@ -45,23 +45,7 @@ scp -p -r bork:code/furkies-purrkies .
 
 ## TODO
 
-- [ ] both website and homepage should run in parallel for testing.
-- [ ] Make a stand-alone build of WARRIOR using the catpea template, this will replace the existing site.
-- [ ] compiler/convert-audio-to-video is just touching files, it is not creating the videos, fix it when this program goes live
-
-### TESTING
-
-- [ ] check for indexes that point to removed record-directories and remove them (put use the trash bin, not rimraf)
-- [ ] add a file checker to weed out strange files
-
-## CHALLENGES
-
-- [ ] Introduce the software tutorial Book (add new book)
-- [ ] Setup Audio Book With Amazon, Gutenberg, or Librivox, add Cover Image to mp4 files as cover image.
-- [ ] Add the Audiobook compiler, and remember that it just concatetantes files so it is very fast. (this is 30GB+ what to do?)
-
-## DONE
-
+- [x] both website and homepage should run in parallel for testing.
 - [x] configuration must contain order: "latest",
 - [x] add artwork link in the views of the server (credit the image owner)
 - [x] new entry creation! ... possible event interface...
