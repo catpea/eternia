@@ -106,8 +106,6 @@ async function tasks({name, projects}){
 
   // get the named project
   const selected = projects.task.filter(i=>i.name == name)[0];
-  console.log(selected);
-  console.log(selected.name);
   const configuration = selected.configuration;
   invariant(selected.name, 'selected.name is empty, task name is not in configuration file.');
 
