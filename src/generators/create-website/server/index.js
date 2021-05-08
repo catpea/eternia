@@ -35,8 +35,13 @@ class MyEmitter extends EventEmitter {
       // console.log(project);
 
       app.use(async (ctx, next) => {
+
         ctx.state.title = project.title;
         ctx.state.description = project.description;
+
+        ctx.state.website = project.website;
+        ctx.state.tagline = project.tagline;
+
         ctx.state.network = project.network;
         await next()
       })
@@ -79,13 +84,18 @@ class MyEmitter extends EventEmitter {
         const { pages, posts } = data.all.latest
         const pageNumber = ctx.params.page ? parseInt(ctx.params.page) : pages.length - 1
         const selected = lodash.filter(posts, { pageCounter: pageNumber })
+
         await ctx.render('index', {
-          pageName: ctx.state.title,
-          pageDescription: ctx.state.description,
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
+          pageName: ctx.state.website,
+          pageDescription: ctx.state.tagline,
+
           pagination: lodash.last(selected),
           books: data.meta.books,
           posts: selected,
         })
+
       }
 
       async function book(ctx) {
@@ -95,6 +105,8 @@ class MyEmitter extends EventEmitter {
         const pageNumber = ctx.params.page ? parseInt(ctx.params.page) : order == 'story' ? 0 : pages.length - 1
         const selected = lodash.filter(posts, { pageCounter: pageNumber })
         await ctx.render('book', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           bookName: meta.name,
           bookTitle: meta.title,
           pageName: `${meta.title}: ${meta.subtitle}`,
@@ -116,6 +128,8 @@ class MyEmitter extends EventEmitter {
         })
         if (!post) ctx.throw(404, 'invalid post id')
         await ctx.render('read', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           pageName: post.title,
           pageDescription: `${meta.title}: ${meta.description}`,
           books: data.meta.books,
@@ -132,6 +146,8 @@ class MyEmitter extends EventEmitter {
         })
         if (!post) ctx.throw(404, 'invalid post id')
         await ctx.render('print', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           pageName: post.title,
           pageDescription: `${meta.title}: ${meta.description}`,
           books: data.meta.books,
@@ -144,6 +160,8 @@ class MyEmitter extends EventEmitter {
         const order = ctx.params.order ? ctx.params.order : meta.order
         const { pages, posts } = data[ctx.params.name][order]
         await ctx.render('toc', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           bookName: meta.name,
           bookTitle: meta.title,
           pageName: `${meta.title}: ${meta.subtitle}`,
@@ -157,6 +175,8 @@ class MyEmitter extends EventEmitter {
 
       async function sitemap(ctx) {
         await ctx.render('sitemap', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           books: data.meta.books,
           data,
         })
@@ -164,6 +184,8 @@ class MyEmitter extends EventEmitter {
 
       async function list(ctx) {
         await ctx.render('list', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
           books: data.meta.books,
           posts: data.all.posts,
         })
