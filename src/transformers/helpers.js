@@ -2,6 +2,7 @@ import debugContext from 'debug';
 const debug = debugContext('compiler-helpers');
 
 import invariant from 'invariant';
+import ms from 'ms';
 import path from "path";
 import { existsSync, statSync } from "fs";
 import { readFile, readdir, access } from "fs/promises";
@@ -65,7 +66,7 @@ async function expired(compiled, sources) {
     const difference = sourceDate - destinationDate;
     if(difference<1000) return false;
     // Low resolution time bugfix.
-
+    debug(`expired(${path.basename(compiled)},[${path.basename(sourceFile)}]) reports a difference of ${ms(difference)}`)
     return true;
   }else{
     // destination is not expired, sources are older

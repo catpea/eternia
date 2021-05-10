@@ -1,5 +1,5 @@
 import debugContext from 'debug';
-const debug = debugContext('create-cover-from-thumbnails');
+const debug = debugContext('resize-cover-images');
 
 import path from "path";
 import { statSync } from "fs";
@@ -28,6 +28,7 @@ async function main({record, project, home}){
     const sourceFile = path.join(filesDirectory, record.image);
 
     if(await expired(destinationFile, [sourceFile])){
+      debug(`${destinationFile} expired, ${sourceFile} is newer.`)
       const commandArguments = image.arguments
       .map(i=>i==='SOURCE'?sourceFile:i)
       .map(i=>i==='DESTINATION'?destinationFile:i);
