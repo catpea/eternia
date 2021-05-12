@@ -7,15 +7,25 @@ Eternia Static Site Generator
 npm -g i eternia
 ```
 
+## Example
+
+```shell
+
+eternia create furkies-purrkies md
+eternia build catpea.com
+hs -o -c-1 ./dist/furkies-purrkies/wwwroot/
+
+```
+
 ## Usage
 
 ```shell
 
-eternia build profile-name #run it the directory containing your content database.
+eternia build <task-name> #run it the directory containing your content database.
 
-eternia create furkies-purrkies html # to create html record.
+eternia create furkies-purrkies [md] # to create markdown record.
 
-eternia create furkies-purrkies md # to create markdown record.
+eternia create furkies-purrkies [html] # to create html record.
 
 eternia create --name "The Philosopher" westland-warrior # to create a new yaml record.
 
