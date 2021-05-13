@@ -17,7 +17,7 @@ async function main({record, project, home, dist}){
   const htmlLocation = path.join(home, 'cache', 'html.html');
   const bootstrapLocation = path.join(home, 'cache', 'bootstrap.html');
 
-  if( await missing([htmlLocation, bootstrapLocation]) || await expired(contentLocation, [htmlLocation, bootstrapLocation]) ){
+  if( await expired(contentLocation, [htmlLocation, bootstrapLocation], {tolerateMissingSources:true}) ){
     const content = yaml.load((await readFile(contentLocation)).toString());
     const html = toHtml(content);
     const bootstrap = toBootstrap(content);

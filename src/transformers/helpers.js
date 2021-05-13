@@ -39,17 +39,21 @@ async function missing(sources) {
   return false;
 }
 
-async function expired(compiled, sources) {
+async function expired(compiled, sources, options) {
 
   if (!(await exists(compiled))) return true; // yes it is outdated, it does not even exist
 
-  for(const source of sources){
-    //if (!(await exists(source))) return true;
-    if(await exists(source)){
-      // source file is OK
-    }else{
-      // one of the source files does not exist...
-      throw new Error(`Missing source file ${source}`);
+  if(options.tolerateMissingSources){
+    return true; // yes it is outdated, pretty badly, becasue some of the sources don't even exist.
+  }else{
+    for(const source of sources){
+      //if (!(await exists(source))) return true;
+      if(await exists(source)){
+        // source file is OK
+      }else{
+        // one of the source files does not exist...
+        throw new Error(`Missing source file ${source}`);
+      }
     }
   }
 

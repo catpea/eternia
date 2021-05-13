@@ -14,7 +14,7 @@ async function main({record, project, home, dist}){
   if(!(await exists(contentLocation))) return;
   const htmlLocation = path.join(home, 'cache', 'html.html');
 
-  if( await missing([htmlLocation]) || await expired(contentLocation, [htmlLocation]) ){
+  if(await expired(contentLocation, [htmlLocation], {tolerateMissingSources:true}) ){
     const html = marked((await readFile(contentLocation)).toString());
     record.html = html;
     await writeFile(htmlLocation, html);
