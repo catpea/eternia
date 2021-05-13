@@ -43,7 +43,7 @@ async function expired(compiled, sources, options) {
 
   if (!(await exists(compiled))) return true; // yes it is outdated, it does not even exist
 
-  if(options.tolerateMissingSources){
+  if(options?.tolerateMissingSources){
     return true; // yes it is outdated, pretty badly, becasue some of the sources don't even exist.
   }else{
     for(const source of sources){
