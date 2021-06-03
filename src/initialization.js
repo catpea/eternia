@@ -83,6 +83,7 @@ async function createDependencyStack({name, projects, list, exists, circular, co
   const project = Object.assign({}, projects.common, selected, index, configuration?configuration:{});
   const parent = name;
 
+
   // descend into dependencies
   for(const name of project.dependencies.filter(i=>i)){
     if(!circular[name]){

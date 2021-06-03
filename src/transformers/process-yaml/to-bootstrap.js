@@ -34,7 +34,6 @@ function main(content) {
       <div class="card-header">{{title}}</div>
       <a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}" alt="{{title}}"><img src="/image/yid-{{id}}.jpg" alt="{{title}}" class="card-img"></a>
       <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
         <a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}" class="btn btn-warning">Play Video</a>
       </div>
     </div>
