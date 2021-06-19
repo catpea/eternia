@@ -15,13 +15,16 @@ import koaBody from 'koa-body'
 import serve from 'koa-static'
 import mount from 'koa-mount'
 import logger from 'koa-logger'
+import views from 'koa-views';
 
-import render from './lib/render.mjs'
 import datasource from './lib/datasource.mjs'
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+
+
 
 
 class MyEmitter extends EventEmitter {
@@ -46,7 +49,9 @@ class MyEmitter extends EventEmitter {
         await next()
       })
 
-      app.use(serve(path.join(__dirname, 'static')));
+      app.use(serve(
+        path.join(process.cwd(), 'themes', project.theme, 'static')
+      ));
 
       for( const { mountpoint, directory } of project.mounts ){
         app.use(mount(mountpoint, serve(directory)));
@@ -62,7 +67,12 @@ class MyEmitter extends EventEmitter {
 
       const data = datasource(options);
 
+
+      const render = views(path.join(process.cwd(), 'themes', project.theme, 'views'), {
+        map: { html: 'ejs' },
+      });
       app.use(render)
+
       app.use(koaBody())
 
       router
