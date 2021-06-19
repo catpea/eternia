@@ -23,9 +23,11 @@ async function main({record, project, home, dist}){
   // File Specific Tests
   const configuration = JSON.parse((await readFile( configurationFile )).toString());
 
-  // image is always required
-  const imageFile = path.join(home, 'files', configuration.image);
-  await access(imageFile);
+  // while image is always required, in case of westland warrior there will be no image when adding a new chapter
+  // only after download and make thumbnails runs will there be an image, so the image test must come after download
+  // the following test is performed in src/transformers/verify-presence-of-images/index.js
+  // const imageFile = path.join(home, 'files', configuration.image);
+  // await access(imageFile);
 
   // audio is optional
   if(configuration.audio){
