@@ -47,7 +47,8 @@ async function main({record, project, home}){
     if(sourceFiles > 45) tile = 7;
     if(sourceFiles < 9) tile = 2;
     if(sourceFiles < 5) tile = 2;
-    if(sourceFiles < 4) tile = 1;
+    if(sourceFiles < 3) tile = 2;
+    
 
     const command = 'montage';
     const commandArguments = [
