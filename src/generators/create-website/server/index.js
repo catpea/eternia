@@ -39,6 +39,8 @@ class MyEmitter extends EventEmitter {
 
       app.use(async (ctx, next) => {
 
+        ctx.state.alert = project.alert;
+
         ctx.state.title = project.title;
         ctx.state.description = project.description;
 
