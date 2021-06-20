@@ -65,7 +65,10 @@ async function progress(){
   progressReporter.on('stop', () => {
     multibar.stop();
   });
-  return progressReporter;
+
+
+  return process.env.DEBUG?(new EventEmitter()):progressReporter;
+
 }
 
 async function createDependencyStack({name, projects, list, exists, circular, configuration}){
