@@ -2,6 +2,8 @@ import path from "path";
 import { writeFile, readFile } from "fs/promises";
 
 import marked from "marked";
+marked.setOptions({ gfm: true, breaks:true });
+
 import pretty from "pretty";
 
 import { exists, expired, missing } from "../helpers.js";
