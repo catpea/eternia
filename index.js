@@ -60,7 +60,7 @@ async function create({project, template, options}){
   invariant(selected.name, 'selected.name is empty, project name is not in configuration file.');
   const index = JSON.parse((await readFile(path.join(selected.name, 'index.json'))).toString());
   project = Object.assign({}, configuration.common, selected, index);
-  template = template?project.templates[template]:Object.entries(project.templates)[1][1];
+  template = template?project.templates[template]:Object.entries(project.templates)[0][1];
   invariant(template, 'Unable to select template, please specify a valid template.')
   const payload = (await import(`${process.cwd()}/${template}/index.js`)).default;
   const destination = path.join(process.cwd(), project.name)
