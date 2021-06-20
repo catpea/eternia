@@ -9,7 +9,7 @@ import glob from 'tiny-glob';
 
 export default main;
 
-async function patch({file, subdir}){
+async function patch({file, prefix}){
   const html = (await readFile(file)).toString();
   const $ = cheerio.load(html);
 
@@ -18,17 +18,13 @@ async function patch({file, subdir}){
     link: 'href',
     img: 'src',
     script: 'src',
-    script: 'src',
   };
 
   for(const [selector, attribute] of Object.entries(targets)){
     $(selector).each(function (i, elem) {
       const location = $(this).attr(attribute);
       const rewrite = location?.startsWith('/');
-      if(rewrite){
-        console.log(`REWROTE: ${location} to ${path.join(subdir, location)}`)
-      }
-      if(rewrite) $(this).attr(attribute, path.join(subdir, location));
+      if(rewrite) $(this).attr(attribute, path.join(prefix, location));
     });
   }
 
@@ -36,9 +32,9 @@ async function patch({file, subdir}){
   await writeFile(file, result);
 }
 
-async function main({subdir, pattern, cwd}){
+async function main({prefix, pattern, cwd}){
   const files = await glob(pattern, {cwd, absolute:true});
   for (const file of files) {
-    await patch({file, subdir})
+    await patch({file, prefix})
   }
 }

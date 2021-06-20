@@ -12,7 +12,7 @@ async function main({ so, project, dist }){
 
   const cwd = path.join(dist, 'wwwroot');
   const pattern = '**/*.{html}';
-  const subdir = project.subdir;
-  await application({ subdir, pattern, cwd });
+  const prefix = project.subdir;
+  await application({ prefix, pattern, cwd });
 
 }
