@@ -45,7 +45,7 @@ async function createWebsite({project, destination, dist, progress}) {
   const server = new Server();
   server.on('start', async function(server){
     debug(`server running at: ${address}`);
-    await pause(10*1000);
+    await pause(1*1000);
     await crawler({project, address, dist, destination, progress });
     debug(`Website was scraped into: ${destination}`);
     server.close();
