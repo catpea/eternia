@@ -56,15 +56,22 @@ async function build({name}){
 async function create({project, template, options}){
   const name = options.name;
   const configuration = (await import(`${process.cwd()}/configuration.mjs`)).default;
-  const selected = configuration.project.filter(o=>o.name==project)[0]
+  const selected = configuration.project.filter(o=>o.name==project)[0];
   invariant(selected.name, 'selected.name is empty, project name is not in configuration file.');
   const index = JSON.parse((await readFile(path.join(selected.name, 'index.json'))).toString());
   project = Object.assign({}, configuration.common, selected, index);
-  template = template?project.templates[template]:Object.entries(project.templates)[0][1];
-  invariant(template, 'Unable to select template, please specify a valid template.')
+  invariant(Object.keys(project.templates).length, 'Sorry, but the configuration file does not describe any templates.');
+  if(template){
+    // template was specified
+    invariant(project.templates[template], `The template you specified is not a valid selection, valid selections are ${Object.keys(project.templates).join(', ')}.`);
+    template = project.templates[template];
+  }else{
+    // template was not specified, making the default selection for the user.
+    const first = Object.keys(project.templates).shift();
+    template = project.templates[first];
+  }
+  invariant(template, 'Unable to select a template, please specify a valid template.');
   const payload = (await import(`${process.cwd()}/${template}/index.js`)).default;
   const destination = path.join(process.cwd(), project.name)
   payload({destination, name});
-
-  //creator({project, template});
 }
