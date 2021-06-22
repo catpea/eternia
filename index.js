@@ -1,10 +1,8 @@
 #!/usr/bin/env -S node
-
 import path from 'path';
 import invariant from 'invariant';
 import { Command } from 'commander/esm.mjs';
 import { readFile } from "fs/promises";
-
 import initialization from './src/initialization.js';
 import builder from './src/builder.js';
 import creator from './src/creator.js';
