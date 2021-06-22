@@ -17,11 +17,6 @@ program
   .description('Performs a one off build of your site into ./dist')
   .action(name=>{build({name})});
 
-// program
-//   .command('task <name>')
-//   .description('Executes a task')
-//   .action(name=>{task({name})});
-
 program
   .command('create <project> [template]')
   .option('-n, --name <name>', 'Name of item to create')
@@ -31,7 +26,6 @@ program
 program.parse(process.argv);
 
 async function build({name}){
-
   const projects = (await initialization.tasks({ name, projects: (await import(`${process.cwd()}/configuration.mjs`)).default }))
   const progress = await initialization.progress();
   progress.emit('setup', {type:'Project', name: 'overall', size:projects.length});
@@ -41,17 +35,6 @@ async function build({name}){
   }
   progress.emit('stop');
 }
-
-// async function build({name}){
-//   const projects = (await initialization.createDependencyStack({name, projects: (await import(`${process.cwd()}/configuration.mjs`)).default}))
-//   const progress = await initialization.progress();
-//   progress.emit('setup', {type:'Project', name: 'overall', size:projects.length});
-//   for(const project of projects){
-//     progress.emit('update', {name: 'overall', action:'increment', label: project.name});
-//     await builder({project, progress});
-//   }
-//   progress.emit('stop');
-// }
 
 async function create({project, template, options}){
   const name = options.name;
