@@ -44,16 +44,14 @@ async function create({project, template, options}){
   const index = JSON.parse((await readFile(path.join(selected.name, 'index.json'))).toString());
   project = Object.assign({}, configuration.common, selected, index);
   invariant(Object.keys(project.templates).length, 'Sorry, but the configuration file does not describe any templates.');
-  if(template){
-    // template was specified
+  if(template){ // template was specified
     invariant(project.templates[template], `The template you specified is not a valid selection, valid selections are ${Object.keys(project.templates).join(', ')}.`);
     template = project.templates[template];
-  }else{
-    // template was not specified, making the default selection for the user.
-    const first = Object.keys(project.templates).shift();
-    template = project.templates[first];
+  }else{ // template was not specified, making the default selection for the user.
+    const firstOne = Object.keys(project.templates).shift();
+    template = project.templates[firstOne];
   }
-  invariant(template, 'Unable to select a template, please specify a valid template.');
+  invariant(template, 'Hmm, unable to select a template, please specify a valid template.');
   const payload = (await import(`${process.cwd()}/${template}/index.js`)).default;
   const destination = path.join(process.cwd(), project.name)
   payload({destination, name});
