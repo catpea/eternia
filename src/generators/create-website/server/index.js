@@ -41,7 +41,9 @@ class MyEmitter extends EventEmitter {
 
         ctx.state.alert = project.alert;
 
+        ctx.state.brand = project.brand;
         ctx.state.title = project.title;
+        ctx.state.subtitle = project.subtitle;
         ctx.state.description = project.description;
 
         ctx.state.website = project.website;
@@ -100,7 +102,7 @@ class MyEmitter extends EventEmitter {
         await ctx.render('index', {
           website: ctx.state.website,
           tagline: ctx.state.tagline,
-          pageName: ctx.state.website,
+          pageName: ctx.state.brand,
           pageDescription: ctx.state.tagline,
 
           pagination: lodash.last(selected),
