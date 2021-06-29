@@ -16,6 +16,8 @@ function main(html) {
     if ($(element).parent().contents().length == 1) $(element).remove();
   });
 
+
+
   // Remove images (.text() can interpret them into text via alt/.title, we don't need this.)
   $("img").remove();
   $("figcaption").remove();
@@ -33,6 +35,10 @@ function main(html) {
     }
   });
 
+  $("a").each(function (index, element) {
+    $(this).replaceWith($(this).html());
+  });
+  
   let text = convert($.html().trim(), {
     wordwrap: 1024
   })

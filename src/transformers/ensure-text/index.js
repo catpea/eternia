@@ -13,7 +13,7 @@ async function main({record, project, home, dist}){
 
   if(record.text) return;
 
-  const htmlLocation = path.join(home, 'cache', 'html.html'); //NOTE: don't use print.html as link references will pop up in odd places, stick to the simple.html.
+  const htmlLocation = path.join(home, 'cache', 'print.html'); //NOTE: don't use print.html as link references will pop up in odd places, stick to the simple.html.
   const textLocation = path.join(home, 'cache', 'text.txt');
 
   if( await expired(textLocation, [htmlLocation]) ){
