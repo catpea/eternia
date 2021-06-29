@@ -33,10 +33,11 @@ function main(html) {
     }
   });
 
-  const clean = $.html();
-  const text = convert(clean, {
-    wordwrap: 99999
-  });
+  const text = convert($.html().trim(), {
+    wordwrap: 1024
+  })
+  .replace(/-{3,}/g, '---')
+  .replace(/\n{2,}/g, "\n\n");
 
   if (links.length) text = text + "\n\n\n" + links.map(({ name, url }) => `[${name}]: ${url}`).join("\n");
 
