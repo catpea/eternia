@@ -1,11 +1,14 @@
 import cheerio from "cheerio";
 import pretty from "pretty";
+import { convert } from "html-to-text";
 
 export default main;
 
 function main(html) {
   let unique = new Set();
   // This is the normalized text version.
+  html = pretty(html,{ocd:true});
+  //html = html.replace(/<br>[^\n]/gi,'<br>\n')
   const $ = cheerio.load(html);
 
   // Destroy paragraphs with links, this is considered a stand-alone link line, a button, data not relevant to an excerpt.
@@ -30,14 +33,10 @@ function main(html) {
     }
   });
 
-  let text = $("body")
-    .text()
-    .trim()
-    .split("\n")
-    .map((i) => i.trim())
-    .join("\n")
-    .replace(/\n{2,}/g, "\n\n")
-    .trim();
+  const clean = $.html();
+  const text = convert(clean, {
+    wordwrap: 99999
+  });
 
   if (links.length) text = text + "\n\n\n" + links.map(({ name, url }) => `[${name}]: ${url}`).join("\n");
 

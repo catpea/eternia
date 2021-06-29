@@ -37,6 +37,7 @@
     "got": "^11.8.2",
     "handlebars": "^4.7.7",
     "handlebars-helpers": "^0.10.0",
+    "html-to-text": "^8.0.0",
     "invariant": "^2.2.4",
     "js-yaml": "^4.1.0",
     "koa": "^2.13.1",
