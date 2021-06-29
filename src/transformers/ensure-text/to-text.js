@@ -33,7 +33,7 @@ function main(html) {
     }
   });
 
-  const text = convert($.html().trim(), {
+  let text = convert($.html().trim(), {
     wordwrap: 1024
   })
   .replace(/-{3,}/g, '---')
