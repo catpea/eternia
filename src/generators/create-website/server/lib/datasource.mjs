@@ -82,7 +82,14 @@ function makePostDataMoreUseful(listOfBooks){
       entry.bookName = book.name;
       entry.bookTitle = book.title;
       entry.timestamp = moment(entry.date).format('dddd, MMMM Do YYYY, h:mm:ss a');
+
+      if(entry.created){
+        entry.createdTimestamp = moment(entry.created).format('dddd, MMMM Do YYYY');
+      }
+
       entry.text = lodash.truncate(entry.text, {'length': 512, 'separator': /,? +/ });
+      entry.text = entry.text.replace(/\[\d+\]/g, '');
+      
       index++;
     }
   }
