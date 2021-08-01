@@ -85,11 +85,12 @@ function makePostDataMoreUseful(listOfBooks){
 
       if(entry.created){
         entry.createdTimestamp = moment(entry.created).format('dddd, MMMM Do YYYY');
+        entry.isUpdated = true;
       }
 
       entry.text = lodash.truncate(entry.text, {'length': 512, 'separator': /,? +/ });
       entry.text = entry.text.replace(/\[\d+\]/g, '');
-      
+
       index++;
     }
   }
