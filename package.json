@@ -1,6 +1,6 @@
 {
   "name": "eternia",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "Eternia Static Site Generator",
   "main": "index.js",
   "bin": {
