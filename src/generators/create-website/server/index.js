@@ -40,6 +40,7 @@ class MyEmitter extends EventEmitter {
       app.use(async (ctx, next) => {
 
         ctx.state.alert = project.alert;
+        ctx.state.alertTitle = project.alertTitle;
 
         ctx.state.brand = project.brand;
         ctx.state.title = project.title;
@@ -50,6 +51,9 @@ class MyEmitter extends EventEmitter {
         ctx.state.tagline = project.tagline;
 
         ctx.state.network = project.network;
+
+
+
         await next()
       })
 
