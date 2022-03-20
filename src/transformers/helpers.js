@@ -23,8 +23,8 @@ const coverImages = [
   {id: 'xs', command:'convert', arguments:['-define', 'jpeg:size=320x200', 'SOURCE', '-thumbnail', '200x200^', '-gravity', 'center', '-extent', '200x200', '-quality', '90', 'DESTINATION']},
   {id: 'sm', command:'convert', arguments:['-define', 'jpeg:size=640x480', 'SOURCE', '-thumbnail', '300x300^', '-gravity', 'center', '-extent', '300x300', '-quality', '90', 'DESTINATION']},
   {id: 'md', command:'convert', arguments:['-define', 'jpeg:size=800x600', 'SOURCE', '-thumbnail', '500x500^', '-gravity', 'center', '-extent', '500x500', '-quality', '90', 'DESTINATION']},
-  {id: 'lg', command:'convert', arguments:['-define', 'jpeg:size=1024x768', 'SOURCE', '-thumbnail', '600x600^', '-gravity', 'center', '-extent', '600x600', '-quality', '90', 'DESTINATION']},
-  {id: 'xl', command:'convert', arguments:['-define', 'jpeg:size=1920x1080', 'SOURCE', '-thumbnail', '1024x768^', '-gravity', 'center', '-extent', '1024x768', '-quality', '90', 'DESTINATION']},
+  {id: 'lg', command:'convert', arguments:['-define', 'jpeg:size=1024x768', 'SOURCE', '-thumbnail', '700x700^', '-gravity', 'center', '-extent', '700x700', '-quality', '100', 'DESTINATION']},
+  {id: 'xl', command:'convert', arguments:['-define', 'jpeg:size=1920x1080', 'SOURCE', '-thumbnail', '1024x768^', '-gravity', 'center', '-extent', '1024x768', '-quality', '99', 'DESTINATION']},
 ]
 
 async function missing(sources) {
