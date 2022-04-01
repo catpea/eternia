@@ -31,7 +31,7 @@ async function main({ so, project, dist, progress }){
   }
 
   const audiolistLocation = path.join(dist, "audiolist.txt");
-  await writeFile(audiolistLocation, list.concat('\n'));
+  await writeFile(audiolistLocation, list.join('\n'));
   debug(`Audio list created at: ${audiolistLocation}`)
 
 
