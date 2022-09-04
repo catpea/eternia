@@ -32,12 +32,15 @@ function main(content) {
     <div class="card card-section bg-dark text-warning shadow">
 
       <div class="card-header">{{title}}</div>
-      <a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}" alt="{{title}}"><img src="/image/yid-{{id}}.jpg" alt="{{title}}" class="card-img"></a>
+      <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" title="{{title}}" alt="{{title}}"><img src="/image/yid-{{id}}.jpg" alt="{{title}}" class="card-img"></a>
       <div class="card-body">
-        <a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}" class="btn btn-warning">Play Video</a>
+        <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" title="{{title}}" class="btn btn-warning">Play Video</a>
       </div>
     </div>
   {{/is}}
+
+
+
 
   {{#is this.type 'text'}}
     <div class="card card-section bg-dark text-warning shadow">

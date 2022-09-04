@@ -36,12 +36,12 @@ function main(content) {
         <h2>{{title}}</h2>
       </header>
       <figure>
-        <a href="https://www.youtube.com/watch?v={{id}}" class="no-tufte-underline" title="{{title}}">
+        <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" class="no-tufte-underline" title="{{title}}">
           <img src="/image/yid-{{id}}.jpg" alt="{{title}}">
         </a>
         <figcaption>{{title}}</figcaption>
       </figure>
-      <p><a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}">Play Video</a></p>
+      <p><a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" title="{{title}}">Play Video</a></p>
     </div>
   {{/is}}
 

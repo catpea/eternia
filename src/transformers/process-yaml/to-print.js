@@ -81,7 +81,7 @@ function main(content) {
 
   {{#is this.type 'youtube'}}
     <div class="section yt">
-    <a href="https://www.youtube.com/watch?v={{id}}" title="{{title}}">{{title}}</a>
+    <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" title="{{title}}">{{title}}</a>
     </div>
   {{/is}}
 

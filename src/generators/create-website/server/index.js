@@ -93,8 +93,10 @@ class MyEmitter extends EventEmitter {
         .get('/browse/:page', index)
         .get('/read/:name/:counter', read)
         .get('/print/:name/:counter', print)
+
         .get('/sitemap', sitemap)
         .get('/list', list)
+        .get('/tiles', tiles)
 
       app.use(router.routes())
 
@@ -205,7 +207,16 @@ class MyEmitter extends EventEmitter {
           website: ctx.state.website,
           tagline: ctx.state.tagline,
           books: data.meta.books,
-          posts: data.all.posts,
+          data,
+        })
+      }
+
+      async function tiles(ctx) {
+        await ctx.render('tiles', {
+          website: ctx.state.website,
+          tagline: ctx.state.tagline,
+          books: data.meta.books,
+          data,
         })
       }
 
