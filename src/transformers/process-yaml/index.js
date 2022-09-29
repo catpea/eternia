@@ -6,6 +6,7 @@ import yaml from "js-yaml";
 import { exists, expired, missing } from "../helpers.js";
 import toHtml from "./to-html.js";
 import toMarkdown from "./to-markdown.js";
+import toSimpleMarkdown from "./to-simple-markdown.js";
 import toPrint from "./to-print.js";
 import toBootstrap from "./to-bootstrap.js";
 
@@ -20,6 +21,10 @@ async function main({record, project, home, dist}){
   const htmlLocation = path.join(home, 'cache', 'html.html');
   const printLocation = path.join(home, 'cache', 'print.html');
   const bootstrapLocation = path.join(home, 'cache', 'bootstrap.html');
+
+  const smdLocation = path.join('/home/meow/Universe/Development/db/dist/simple-md', record.guid+'.md');
+  const smd = toSimpleMarkdown(yaml.load((await readFile(contentLocation)).toString()));
+  await writeFile(smdLocation, smd);
 
   if( await expired(contentLocation, [htmlLocation, bootstrapLocation], {tolerateMissingSources:true}) ){
     const content = yaml.load((await readFile(contentLocation)).toString());

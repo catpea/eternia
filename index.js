@@ -21,7 +21,8 @@ program
   .description('Creates a new record with default settings.')
   .action((project, template, options)=>{create({project, template, options})});
 
-program.parse(process.argv);
+program
+  .parse(process.argv);
 
 async function build({name}){
   const projects = (await initialization.tasks({ name, projects: (await import(`${process.cwd()}/configuration.mjs`)).default }))

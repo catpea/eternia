@@ -29,13 +29,15 @@ function main(content) {
     </blockquote>
   {{/is}}
 
-  {{#is this.type 'youtube'}}
+  {{#is this.type 'youtube-complex'}}
   <h2>{{title}}</h2>
   <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}"><img src="/image/yid-{{id}}.jpg"></a>
   {{/is}}
 
-  {{#is this.type 'youtubeddddd'}}
-  <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}">{{title}}</a>
+  {{#is this.type 'youtube'}}
+  <p>
+  <a href="https://www.youtube.com/watch?v={{id}}{{#if skip}}&t={{skip}}{{/if}}" title="Play Video">{{title}}</a>
+  </p>
   {{/is}}
 
   {{#is this.type 'text'}}
@@ -75,6 +77,7 @@ function main(content) {
   const template = handlebars.compile(htmlTemplate);
 
   for (let element of content) {
+    if (element.id) element.id = element.id.trim();
     if (element.text) element.text = marked(element.text);
     html += template(element);
   }
